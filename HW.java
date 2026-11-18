@@ -9,7 +9,17 @@ public class HW{
     //For example, “xxxxyzz” should return 3 and “aaaaaaa” should return 3.
     // write a tester that tests various cases : 0 runs, 1 run, etc.
     public int twoRunCounter(String x){
-        return -1;
+        int count = 0;
+        int i = 0;
+        while(i < x.length() - 1){
+            if(x.substring(i, i+1).equals(x.substring(i+1, i+2))){
+                count++;
+                i = i + 2;
+            }else{
+                i++;
+            } 
+        }
+        return count;
     }
 
     //You should use this method in the numGuesser0to100 
@@ -25,19 +35,26 @@ public class HW{
     //Uncomment the code below and figure out what should go in each set
     //of underscores.
     public void numGuesser0to100(){
-		// Random r = new Random();
-		// int numGuesses = ______;
-		// int numToGuess =   ______.nextInt(______);
-		// while(______!= ______){
-        //      ______++;
-		// }
-        // System.out.println("Congratulations! " + ______ + " was the correct number! You guessed it in " +  ______  );
-        // if(______ == 1)
-		// 	System.out.print(" try!");
-		// else
-		// 	System.out.print(" tries!");
+		Random r = new Random();
+		int numGuesses = 0;
+		int numToGuess =  r.nextInt(101);
+		while(askForNum() != numToGuess){
+             numGuesses++;
+		}
+        System.out.println("Congratulations! " + numToGuess + " was the correct number! You guessed it in " +  numGuesses  );
+        if(numGuesses == 1)
+			System.out.print(" try!");
+		else
+			System.out.print(" tries!");
 	}
 
 
+public static void main(String[] args) {
+    HW i = new HW();
+    System.out.println(i.twoRunCounter("ttyyx")); 
+    i.askForNum();
+    i.numGuesser0to100();
+}
 
 }
+
