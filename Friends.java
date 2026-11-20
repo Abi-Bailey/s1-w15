@@ -19,14 +19,11 @@ public class Friends {
     // add three names to the ArrayList
    }
    
-   public void printRandomFriend(){
-    int randFriend = r.nextInt(friends.size());
-    System.out.println(friends.(randFriend));
+   public Name getRandomFriend(){
+   //  int x = r.nextInt(friends.size());
+      int y = (int)(Math.random() * friends.size());
+      return friends.get(y);
     //print out the full name of a random name in the ArrayList
     }
-   
- public static void main(String[] args) {
-    Friends f = new Friends();
-    f.printRandomFriend();
- } 
+
 }

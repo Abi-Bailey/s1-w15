@@ -47,6 +47,8 @@ public class DotRaceArrayList extends JPanel {
       while (k < racerCount) {
          Dot aDotObject = new Dot(randomName(), k, randomColor(), defaultDiameter);
          // FINISH THIS -- insert the Dot object to the dots ArrayList
+         dots.add(aDotObject);
+         k++;
 
       }
    }
@@ -69,18 +71,30 @@ public class DotRaceArrayList extends JPanel {
       System.out.println("And the winner is " + winnaWinnaWinna.getName() + "! . You won by : " + distanceWon(winnaWinnaWinna));
    }
 
-   public double distanceWon(Dot winner){
+   public int distanceWon(Dot winner){
        //FINISH THIS: loop over dots list...
        //find the second place Dot
        // subtract the winner distance from second place      
-   
+      Dot second = dots.get(0);
+      if(winner == second)
+         second = dots.get(1);
+      // for each loop: avoids the for i loop if you don't care where what you are looking for is in the list. 
+      // uses the dots list and pulls out each object one at a time and pulls out the d. don't have to deal with an index
+      // use for when you need to go through the entire list
+      // use for i loop when you need to know where it is in the list
+      for(Dot d: dots){
+         if(winner != d && d.getDistance() > second.getDistance()){
+            second = d;
+         }
+      }
+      return winner.getDistance() - second.getDistance();
    }
    
    // This method returns the 'Dot' whose turn it is to move.
    private Dot whoMoves() {
       int d = randGen.nextInt(dots.size()); // a number between 0 and one less than the number of dots
       // FINISH THIS: return the Dot pointed to by 'd'
- 
+      return dots.get(d);
    }
    
    
@@ -116,6 +130,9 @@ public class DotRaceArrayList extends JPanel {
    // Draw all of the Dot objects
    public void drawRacers(Graphics g) {
       // FINISH THIS -- call drawRacer() for each Dot in dots
+      for(int i = 0; i < dots.size(); i++){
+         drawRacer(dots.get(i), g);
+      }
       
    }
 
@@ -187,7 +204,13 @@ public class DotRaceArrayList extends JPanel {
    // returns a random element from the someColors ArrayList
    public Color randomColor() {
        //FINISH THIS: MAKE SURE IT NEVER REPEATS until all used
-      return someColors.get(randGen.nextInt(someColors.size()));
+      Random r = new Random();
+      ArrayList<Color> takenColors = new ArrayList<>();
+      int x = r.nextInt(someColors.size());
+      takenColors.add(someColors.get(x));
+      someColors.remove(x);
+
+      return takenColors.get(takenColors.size() - 1);
    }
 
    
